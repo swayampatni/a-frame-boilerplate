@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>A-Frame</title>
+    <meta name="description" content="Hello, World! • A-Frame">
+    <script src="https://aframe.io/releases/0.2.0/aframe.min.js"></script>
+  </head>
+  <body>
+    <a-scene stats>
+
+      <a-assets>
+        <img src="assets/creepy.jpg" id="creepy">
+        <img src="assets/ghost.png" id="ghost">
+        <img src="assets/spider.png" id="spider">
+        <img src="assets/start.png" id="start-text">
+      </a-assets>
+
+      <a-box src="#creepy" side="back" height="4" width="4" depth="8"></a-box>
+
+      <a-plane src="#ghost" side="double" id="phantom" opacity="0.7" position="0 -1 3" scale="2 2 2" transparent="true">
+        <!--
+        On click: fly towards the viewer and fade out
+        -->
+        <a-animation attribute="position" begin="ghost-attack" from="0 -1 3" to="0 -1 0"></a-animation>
+        <a-animation attribute="opacity" id="ghost-opacity" begin="ghost-attack" duration="1500" from="0.7" to="0"></a-animation>
+        <!--
+        When fade out has finished: hide
+        -->
+        <a-animation attribute="visible" begin="ghost-hide" to="false"></a-animation>
+      </a-plane>
+
+      <a-plane src="#spider" id="arachnid" side="double" position="0 0 -1" transparent="true">
+        <!--
+        When #start is clicked: drop towards viewer
+        When drop has finished: rise away from viewer
+        -->
+        <a-animation id="spider-attack-start" attribute="position" begin="spider-attack" from="0 0 -1" to="0 -1 -1"></a-animation>
+        <a-animation attribute="position" begin="spider-retreat" from="0 -1 -1" to="0 0 -1"></a-animation>
+      </a-plane>
+
+      <a-plane src="#start-text" id="start" color="red" position="0 -1 -1" height="0.5" width="0.5" transparent></a-plane>
+
+      <!-- <a-plane id="restart" color="green" position="0 -2 0" rotation="-90 0 0" height="0.5" width="0.5"></a-plane> -->
+
+      <a-entity position="0 -1 0">
+        <a-camera>
+          <a-cursor fuse></a-cursor>
+        </a-camera>
+      </a-entity>
+
+    </a-scene>
+
+    <script src="script/script.js"></script>
+  </body>
+</html>
